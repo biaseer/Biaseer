@@ -2,17 +2,16 @@ from treelib import Tree,Node
 import json
 class NodeData:
     def __init__(self, val,num=0,tone=0.0):
-        self.label = None  # 节点标记
+        self.label = None
         self.val = val
-        self.num = num  # 媒体报道数量
-        self.tone = tone  # 媒体报道该事件情绪
+        self.num = num
+        self.tone = tone
     def __str__(self):
-    #     return {'val':self.val, 'num':self.num ,'tone':self.tone}
         return str(self.val)+"+"+str(self.num)+"+"+str(self.tone)
 
 def buildTree(json_data):
     ori_json=json.loads(json.dumps(json_data))
-    pass # null tree?
+    pass # null tree
     mSrc_list=ori_json["children"][0]["mSrc_list"]
     tree_list=[]
     id=0
@@ -20,8 +19,7 @@ def buildTree(json_data):
         tree=Tree()
         tree.create_node(str(id),str(id),data=NodeData(True))  #data=none
         tree_list.append(tree)
-        # print(tree)
-    # print(tree_list[0])
+
     json_node_list=ori_json["children"]
     json_fatherId_list=[0]*len(json_node_list)
     while len(json_node_list)!=0:
@@ -31,7 +29,6 @@ def buildTree(json_data):
         if len(json_node['children'])!=0:
             json_node_list.extend(json_node['children'])
             json_fatherId_list.extend([id]*len(json_node['children']))
-        # tree_mSrcName_list=json_node['tree_mSrcName']
 
         for i in range(len(mSrc_list)):
             tree=tree_list[i]
@@ -66,7 +63,7 @@ def  find_co_contiunity_sub_path(tree):
                 if len(temp_list)>=2:
                     co_path_list.append(temp_list)
                 temp_list=[]
-        if len(temp_list)>=2: #the last con path
+        if len(temp_list)>=2:
             co_path_list.append(temp_list)
     return co_path_list
 
@@ -83,14 +80,14 @@ def find_subpath_maxLen(path,tree):
             temp_list=[]
     if len(temp_list)>=2:
         sub_path_list.append(temp_list)
-    #find maxLen
+
     maxL=0
     for sub_path in sub_path_list:
         if len(sub_path)>maxL:
             maxL=len(sub_path)
     return maxL
 def biasTED(tree1,tree2):
-    pass #归一化
+    pass
     w1=1
     w3=1
     co_path_list=[]
@@ -110,7 +107,6 @@ def biasTED(tree1,tree2):
         maxL1=find_subpath_maxLen(co_path,tree1)
         maxL2 = find_subpath_maxLen(co_path, tree2)
         continuity_cost=continuity_cost+w3*(abs(maxL2-maxL1))*node_diff
-        # continuity_cost = continuity_cost + w3 * node_diff
 
     return continuity_cost
 
@@ -123,7 +119,6 @@ def gen_diff(mSrc_list,mSrc1):
     f = open(json_path, 'r')
     json_data = json.load(f)
     f.close()
-    # mSrc_list = json_data["children"][0]["mSrc_list"] #null tree?
 
     tree_list=buildTree(json_data)
     index_i=mSrc_list.index(mSrc1)
@@ -155,19 +150,6 @@ def gen_diff(mSrc_list,mSrc1):
 
 
 if __name__=="__main__":
-    # json_path="tree_pro.json"
-    # f=open(json_path,'r')
-    # json_data=json.load(f)
-    # f.close()
-    # tree_list=buildTree(json_data)
-    # # print(json_data)
-    # for tree in tree_list:
-    #     print(tree)
-    #     # print(tree.get_node('2'))
-    #     temp1=tree.expand_tree(mode=Tree.DEPTH, sorting=False) #nodelist
-    #     for node in temp1:
-    #         print(tree.get_node(node))
     mSrclist=['msn.com','menafn.com','yahoo.com']
     print(gen_diff(mSrclist,'msn.com'))
-    # print(gen_diff(json_data, 'prokerala.com'))
 

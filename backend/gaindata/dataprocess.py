@@ -8,15 +8,13 @@ import numpy as np
 
 
 TOPIC = 'RUS_UKR'
-ROOT_PATH = '../../preprocessv2/datasets/mergesets/' + TOPIC +'/'
-MEDIA_CONCAT = '../../preprocessv2/same_event/concat/'
-ALL_EVENTS = '../../preprocessv2/same_event/allevents.csv'
+ROOT_PATH = '../../preprocess/datasets/mergesets/' + TOPIC +'/'
+MEDIA_CONCAT = '../../preprocess/same_event/concat/'
+ALL_EVENTS = '../../preprocess/same_event/allevents.csv'
 
 
-# MEDIA_XY = '../../preprocessv2/datasets/mediaxy/doctone_results.json'
-# MEDIA_XY = '../../preprocessv2/datasets/mediaxy/multiply_results_add101.json'
-MEDIA_XY = '../../preprocessv2/datasets/mediaxy/multiply_results_div100.json'
-MEDIA_NUMS = '../../preprocessv2/datasets/mediaxy/media_nums.json'
+MEDIA_XY = '../../preprocess/datasets/mediaxy/multiply_results_div100.json'
+MEDIA_NUMS = '../../preprocess/datasets/mediaxy/media_nums.json'
 
 TIME_BINS = 54
 TIME_STEP = 7
@@ -156,7 +154,7 @@ def gainMediaTopicTimeBinsData(mele, mtopic, timeBins, timeBinsIndex):
     return result
 
 
-# TOP 300媒体
+# TOP 300
 def gainMediaGraph():
     result = {}
     allEvents = pd.read_csv(ALL_EVENTS)
@@ -199,14 +197,13 @@ def concatMediaTopicTimeBinsDataDiff(meidaList, mtopic, timeBins, timeBinsIndex)
         tmp_dict[mele]['doctone'] = pd.read_csv(MEDIA_CONCAT + mele + '.' + 'doctone.csv')
         tmp_dict[mele]['docnums'] = pd.read_csv(MEDIA_CONCAT + mele + '.' + 'docnums.csv')
     
-    for index, time in enumerate(timeBins): # 计算每一个格子
+    for index, time in enumerate(timeBins):
         X = []
         for mele in meidaList:
             tone_value = sum(tmp_dict[mele]['doctone'].loc[timeBinsIndex[index][0]:timeBinsIndex[index][-1], str(int(mtopic) - 1)]) / len(time)
             nums_value = sum(tmp_dict[mele]['docnums'].loc[timeBinsIndex[index][0]:timeBinsIndex[index][-1], str(int(mtopic) - 1)]) / len(time)
             X.append([tone_value, nums_value])
         
-        # 计算方差
         X = np.array(X)
         avg = np.average(X, axis=0)
         value = ((X - avg) ** 2).sum() / len(X)

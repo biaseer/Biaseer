@@ -22,8 +22,6 @@ class PyJar:
 
 
 def javaMain(txt_path='test_data50',jar_path="storyteller_3.jar"):
-    # jar = PyJar("keywordExtract/storyforest8.jar")
-    # txt_path='test_data50'
     file_list=os.listdir(txt_path)
     if len(file_list)>0:
         file_name=txt_path+'/' +file_list[0]
@@ -33,21 +31,13 @@ def javaMain(txt_path='test_data50',jar_path="storyteller_3.jar"):
 
     jar.initialize()
     # pr
-    storyteller = jar.jClass("edu.ualberta.storyteller.storylayer.StoryLayer")  # 取得Java类
+    storyteller = jar.jClass("edu.ualberta.storyteller.storylayer.StoryLayer")
 
     print("storyteller", storyteller)
     
     storyteller.main([])
 
-    # jar.finalize()
-
 def testJavaMain():
-    # t1=threading.Thread(target=javaMain(),args=('test_data50',"keywordExtract/storyteller_test.jar"))
-    # t2 = threading.Thread(target=javaMain(), args=('test_data_ori', "keywordExtract/storyteller_ori.jar"))
-    # t1.start()
-    # t2.start()
-    # t1.join()
-    # t2.join()
 
     jar_path1="keywordExtract/storyteller_3.jar"
     jar_path2="keywordExtract/storyteller_3.jar"
@@ -60,9 +50,6 @@ def testJavaMain():
     storytellerOri = jpype.JClass("edu.ualberta.storyteller.storylayer.StoryLayerOri")
     storyteller.main([])
     storytellerOri.main([])
-    # jpype.shutdownJVM()
-    # javaMain('test_data50',"keywordExtract/storyteller_test.jar")
-    # javaMain('test_data_ori', "keywordExtract/storyteller_ori.jar")
 
 if __name__ == '__main__':
     javaMain('test_data50',"keywordExtract/storyteller_3.jar")

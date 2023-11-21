@@ -9,17 +9,12 @@ from utils.helpers import create_date_range
 import utils.config as config
 
 TOPIC = config.TOPIC
-# media_statistic = "../../preprocess/media_statistic/renewprocess/source_url_domain_dict.json"
 media_statistic = "../../preprocess/media_statistic/mention/" + TOPIC + "/source_url_domain_dict.json"
 
 datestr = None
 
 if TOPIC == "RUS_UKR":
     datestr=['2021-06-01','2022-08-31']
-elif TOPIC == "GBR_EUR":
-    datestr=['2019-10-01','2020-02-01']
-elif TOPIC == "JPN_JPN":
-    datestr=['2020-01-01','2023-03-20']
 
 def readJson(filepath):
     with open(filepath, 'r') as fp:
@@ -49,7 +44,7 @@ def dimension_reduction_cluster(dimension_reduction_file, root_path, nc=10, date
         EventRootCode = pd.read_csv(event_root_path + "1EventRootCode_pearson.csv").fillna(0)
         timescope = create_date_range(inp=[ele.replace("-","") for ele in datestr], isint=True)
         EventRootCode = EventRootCode[(EventRootCode["timescope"] >= timescope[0]) & (EventRootCode["timescope"] <= timescope[-1])]
-        # 循环计算每个媒体在当前时间段内的报道事件的个数
+
         media_event_num = []
         for domain in readJson(media_statistic).keys():
             media_event_num.append(sum(EventRootCode[domain]))
@@ -152,22 +147,9 @@ def computeHierarchicalRepresentativeness(tree:dict, cluster_df, num=10):
     if left_nums + right_nums == num - 1:
         right_nums += 1
 
-    # print("left_nums + right_nums: ", left_nums + right_nums)
-
     left_df = cluster_df[cluster_df["media_id"].isin(left_Representativeness)]
-    # left_center = [left_df["x1"].mean(), left_df["x2"].mean()]
 
     right_df = cluster_df[cluster_df["media_id"].isin(right_Representativeness)]
-    # right_center = [right_df["x1"].mean(), right_df["x2"].mean()]
-
-    # left_df['center_distance'] = left_df.apply(lambda x: (x['x1'] - left_center[0]) ** 2 +
-    #                                                      (x['x2'] - left_center[1]) ** 2, axis=1)
-
-    # right_df['center_distance'] = right_df.apply(lambda x: (x['x1'] - right_center[0]) ** 2 +
-    #                                                        (x['x2'] - right_center[1]) ** 2, axis=1)
-
-    # left_df = left_df.sort_values(by="center_distance", axis=0, ascending=True)
-    # right_df = right_df.sort_values(by="center_distance", axis=0, ascending=True)
 
     left_df = left_df.sort_values(by="event_num", axis=0, ascending=False)
     right_df = right_df.sort_values(by="event_num", axis=0, ascending=False)
@@ -196,10 +178,6 @@ def hierarchicalRepresentativeCsv(csvpath, dimension_method_representive, level=
                 representivehierarchicaltree = json.load(fp)
             computeRepresentiveLevel(representivehierarchicaltree, ans, ilevel=ilevel)
 
-        # if ilevel > 0:
-        #     dimension_reduction_df['zoom_' + str(ilevel)] = dimension_reduction_df['zoom_' + str(ilevel - 1)]
-        # dimension_reduction_df['zoom_' + str(ilevel)] = dimension_reduction_df.apply(lambda x: 1 if x['media_id'] in ans else x['zoom_' + str(ilevel)], axis=1)
-
         dimension_reduction_df['zoom_' + str(ilevel)] = dimension_reduction_df.apply(lambda x: 1 if x['media_id'] in ans else 0, axis=1)
     
     dimension_reduction_df.to_csv("dimension_reduction_df.csv", index=False)
@@ -218,21 +196,3 @@ def computeRepresentiveLevel(tree, ans, ilevel=0):
     else:
         computeRepresentiveLevel(tree["left"], ans, ilevel - 1)
         computeRepresentiveLevel(tree["right"], ans, ilevel - 1)
-
-
-# if __name__ == "__main__":
-    
-#     # 先读取媒体降维结果
-#     root_path = "../"
-#     save_path = "../../GDELTEventKG/FrontEnd/public/helpers/"
-#     dimension_reduction_file = "Pearson_tSNE_embedding_0.05.csv"
-    
-#     dimension_method_csv = dimension_reduction_file.split(".")[0].strip() +"/csv"
-#     dimension_method_json = dimension_reduction_file.split(".")[0].strip() +"/json"
-#     dimension_method_representive = dimension_reduction_file.split(".")[0].strip() +"/representive"
-
-#     treelevel = 16
-#     dimension_reduction_cluster(dimension_reduction_file, root_path, nc=10)
-#     hierarchicalTree(dimension_method_csv, level=treelevel)
-#     hierarchicalRepresentativeness(dimension_method_json)
-#     hierarchicalRepresentativeCsv(root_path+dimension_reduction_file, dimension_method_representive, level=treelevel)
