@@ -46,7 +46,7 @@ $ git clone git@github.com:biaseer/preprocess.git
 ~~~
 
 ### Step 3. Backend Services
-In the project, we extract the module for building the story tree into a jar package for easy calling, so you need to install [the Java environment first](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html).
+In the project, we extract the module for building the story tree into a jar package for easy calling, so you need to install [the Java environment](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html) first.
 
 ~~~
 $ java -version
