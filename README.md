@@ -1,6 +1,6 @@
 # Biaseer
 
-## Brontend
+## Backend
 ```
 python main.py
 ```
