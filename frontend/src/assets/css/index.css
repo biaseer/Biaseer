@@ -1,0 +1,5 @@
+.selection{
+    fill: none;
+    stroke: rgb(119, 119, 119);
+    stroke-dasharray: 5,5,5,5;
+}
