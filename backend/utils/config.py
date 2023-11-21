@@ -1,0 +1,5 @@
+
+
+# TOPIC = "JPN_JPN"
+TOPIC = "RUS_UKR"
+# TOPIC = "GBR_EUR"

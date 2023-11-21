@@ -1,0 +1,57 @@
+language = English;  //
+dataType = EnglishNews;  //
+fStopwords = conf/english_stopwords.txt;  //conf/stopwords-en.txt; 
+fSameStoryModel = model/svm_model_self;
+fModel = model/svm_model_self;  //
+fQueryDocMatchModel = model/svm_model_self;
+//fSameStoryModel = model/svm_model.Chinese-news.same-story;
+//fModel = model/svm_model;  //
+//fQueryDocMatchModel = model/svm_model.query_doc;
+maxMatchedDocsSize = 20;
+useRelatedNewsTitlesForMatch = false;
+
+
+boostRateMainKeyword = 3;
+boostRateNormalKeyword = 1;
+boostRateNormalWord = 0;
+
+minSimDoc2KeyGraph = .01;  //
+
+communityDetectAlg = betweenness;
+eventSplitAlg = DocGraph;  //
+
+minTopicSize = 1;
+
+minNodeDF = 2;
+maxNodeDFPercent = .3;
+minEdgeCorrelation = .2;
+minEdgeDF = 1; //3
+
+minClusterNodeSize = 1;
+maxClusterNodeSize = 500;
+
+minDocKeywordSize = 0;
+
+minIntersectPercentToMergeCluster = .5;
+
+minCpToDuplicateEdge = 1.7;
+
+useDocumentTopic = false;
+
+useDocumentTitleCommonWords = false;
+minTitleCommonWordsSize = 0;  // 2
+minTitleCommonWordsPercent = .04;  // .18
+
+
+minKeygraphCompatibilityDc2St = .3;//.3
+minCompatibilityDc2Sn = .0001;//0001
+minTFCosineSimilarityDc2Sn = .02;
+deltaTimeGap = .5;
+deltaDocDistribution = .5;
+
+
+historyLength = 7;
+
+
+cut_mul=5;
+cut_add=2;
