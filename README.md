@@ -1,13 +1,13 @@
 # BiaSeer: An Interactive Visual Analytics System for Identifying and Understanding Media Bias
 
-This is the code repository for BiaSeer. We also provide a video introduction to help you understand BiaSeer.
-
-[![Watch the video](./images/BiaSeer.png)](https://youtu.be/ukb4HHfJ6Cc)
+This is the code repository for BiaSeer.
 
 We develop BiaSeer, a novel visual analytics system that enables the identification and understanding of sustained bias in media coverage.
 BiaSeer builds an overview of the media coverage patterns to assist users in refining the analysis scope of media outlets.
 It visualizes the variances in coverage patterns among different media outlets to facilitate the identification of biased news articles.
 To investigate sustained bias, BiaSeer summarizes news articles into events, connects these events into a narrative structure, and enables analysts to compare the narrative structure of each media outlet using the juxtaposition-based approach.
+
+To help understand BiaSeer, the YouTube URL of the video is: https://www.youtube.com/watch?v=ukb4HHfJ6Cc
 
 ## Pipeline
 ![](./images/pipeline.png)
