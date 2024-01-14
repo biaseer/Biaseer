@@ -7,7 +7,7 @@ BiaSeer builds an overview of the media coverage patterns to assist users in ref
 It visualizes the variances in coverage patterns among different media outlets to facilitate the identification of biased news articles.
 To investigate sustained bias, BiaSeer summarizes news articles into events, connects these events into a narrative structure, and enables analysts to compare the narrative structure of each media outlet using the juxtaposition-based approach.
 
-**To help understand BiaSeer, the YouTube URL of the video is:** https://www.youtube.com/watch?v=mjCv7tqUc-4
+**To help understand BiaSeer, the YouTube URL of the video is:** https://www.youtube.com/watch?v=EUDEe-M_sz0
 
 ## Pipeline
 ![](./images/pipeline.png)
